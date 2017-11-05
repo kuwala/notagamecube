@@ -12,8 +12,8 @@
 #define BRIGHTNESS 48
 
 #define BUTPIN1 0
-#define BUTPIN1 1
-#define BUTPIN1 2
+#define BUTPIN2 1
+#define BUTPIN3 2
 #define BUTDELAY 20
 
 int pos = 0;
@@ -21,6 +21,8 @@ int button1Counter = 0;
 
 // Button objects
 Bounce button1 = Bounce(BUTPIN1, BUTDELAY);
+Bounce button2 = Bounce(BUTPIN2, BUTDELAY);
+Bounce button3 = Bounce(BUTPIN3, BUTDELAY);
 
 CRGB leds[NUMLEDS];
 int timeStep = 100;
@@ -33,6 +35,8 @@ void setup() {
 
   // Buttons
   pinMode(BUTPIN1, INPUT_PULLUP);
+  pinMode(BUTPIN2, INPUT_PULLUP);
+  pinMode(BUTPIN3, INPUT_PULLUP);
 }
 
 void allBlack() {
@@ -50,6 +54,8 @@ void drawLEDS() {
 
 void input() {
   button1.update();
+  button2.update();
+  button3.update();
 
 }
 void inputLogic() {
@@ -58,6 +64,12 @@ void inputLogic() {
     Serial.print("Button 1 Pressed: ");
     Serial.println(button1Counter);
     pos = (pos + 1) % NUMLEDS;
+  }
+
+  if (button2.fallingEdge()) {
+    Serial.println("Button 2 Pressed. ");
+    pos (pos - 1) % NUMLEDS;
+    /* code */
   }
 }
 
